@@ -1,0 +1,8 @@
+These files are the original auditory toolkit/gammatone filterbank code created
+by Malcolm Slaney and Dan Ellis, published at:
+
+http://labrosa.ee.columbia.edu/matlab/gammatonegram/
+https://engineering.purdue.edu/~malcolm/interval/1998-010/
+
+Any non-code assets (ie. the sample WAV file and associated graphs) have been
+removed.

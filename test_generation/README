@@ -1,0 +1,7 @@
+These are Octave/MATLAB scripts that create test data for the Python
+implementation of that gammatone library.
+
+You must add both this directory and the top level 'auditory_toolkit' directory
+to your search path.
+
+The scripts are designed to run under MATLAB and Octave (using '--traditional').

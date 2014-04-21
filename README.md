@@ -102,3 +102,24 @@ depending on where they are in the frequency domain.
 The gammatone filterbank approach seems to be closer to what someone might
 intuitively expect a visualisation of sound to look like, and can help develop
 an intuition about alternative representations of signals.
+
+Verifying the port
+------------------
+
+Since this is a port of existing MATLAB code, I've written tests to verify the
+Python implementation against the original code. These tests aren't unit tests,
+but they do generally test single functions. Running the tests has the same
+workflow:
+
+  1. Run the scripts in the `test_generation` directory. This will create a
+     `.mat` file containing test data in `tests/data`.
+     
+  2. Run `nosetest3` in the top level directory. This will find and run all the
+     tests in the `tests` directory.
+
+Although I'm usually loathe to check in generated files to version control, I'm
+willing to make an exception for the `.mat` files containing the test data. My
+reasoning is that they represent the decoupling of my code from the MATLAB code,
+and if the two projects were separated, they would be considered a part of the
+Python code, not the original MATLAB code.
+

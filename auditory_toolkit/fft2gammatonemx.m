@@ -1,5 +1,5 @@
-function [wts,cfreqs] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq, maxlen)
-% [wts,cfreqa] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq, maxlen)
+function [wts,gain] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq, maxlen)
+% wts = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq, maxlen)
 %      Generate a matrix of weights to combine FFT bins into
 %      Gammatone bins.  nfft defines the source FFT size at
 %      sampling rate sr.  Optional nfilts specifies the number of
@@ -9,9 +9,7 @@ function [wts,cfreqs] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfre
 %      While wts has nfft columns, the second half are all zero. 
 %      Hence, aud spectrum is
 %      fft2gammatonemx(nfft,sr)*abs(fft(xincols,nfft));
-%      maxlen truncates the rows to this many bins.
-%      cfreqs returns the actual center frequencies of each
-%      gammatone band in Hz.
+%      maxlen truncates the rows to this many bins
 %
 % 2004-09-05  Dan Ellis dpwe@ee.columbia.edu  based on rastamat/audspec.m
 % Last updated: $Date: 2009/02/22 02:29:25 $

@@ -53,14 +53,10 @@ def fft_weights_funcs(args, expected):
     ) for label in ("weights", "gains"))
     
     def test_gains():
-        # This is to make the args visible in a debugger
-        nonlocal args
         assert gains.shape == expected_gains.shape 
         assert np.allclose(gains, expected_gains, rtol=1e-6, atol=1e-12)
  
     def test_weights():
-        # This is to make the args visible in a debugger
-        nonlocal args
         assert weights.shape == expected_weights.shape
         assert np.allclose(weights, expected_weights, rtol=1e-6, atol=1e-12)
  

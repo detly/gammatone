@@ -51,9 +51,9 @@ This project is based on research into how humans perceive audio, originally
 published by Malcolm Slaney:
 
 [Malcolm Slaney (1998) "Auditory Toolbox Version 2", Technical Report #1998-010,
-Interval Research Corporation, 1998.][slaney-1998]
-
-[slaney-1998] : http://cobweb.ecn.purdue.edu/~malcolm/interval/1998-010/
+Interval Research Corporation, 1998.](
+http://cobweb.ecn.purdue.edu/~malcolm/interval/1998-010/
+)
 
 Slaney's report describes a way of modelling how the human ear perceives,
 emphasises and separates different frequencies of sound. A series of gammatone
@@ -82,9 +82,9 @@ implementation was later extended by Dan Ellis, who found a way to approximate a
 matrix of weights that can be applied to the output of a FFT so that a
 Fourier-based spectrogram can easily be transformed into such an approximation.
 
-Ellis' code and documentation is here: [Gammatone-like spectrograms][ellis-2009]
-
-[ellis-2009] : http://labrosa.ee.columbia.edu/matlab/gammatonegram/
+Ellis' code and documentation is here: [Gammatone-like spectrograms](
+http://labrosa.ee.columbia.edu/matlab/gammatonegram/
+)
 
 Interest
 --------

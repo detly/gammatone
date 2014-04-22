@@ -38,7 +38,7 @@ channels = 256
 fmin = 20
 fmax = fs/2
 
-gtg = gtgram(signal, fs, twin, thop, channels, fmin, fmax)
+gtg = gtgram.gtgram(signal, fs, twin, thop, channels, fmin, fmax)
 Z = np.flipud(20 * np.log10(gtg))
 plt.imshow(Z)
 plt.show()

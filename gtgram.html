@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gammatone.gtgram – spectrogram-like gammatone analysis &mdash; gammatone 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gammatone 1.0 documentation" href="index.html" />
+    <link rel="prev" title="gammatone.filters – gammatone filterbank construction" href="filters.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="filters.html" title="gammatone.filters – gammatone filterbank construction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">gammatone 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-gammatone.gtgram">
+<span id="gammatone-gtgram-spectrogram-like-gammatone-analysis"></span><h1><a class="reference internal" href="#module-gammatone.gtgram" title="gammatone.gtgram"><tt class="xref py py-mod docutils literal"><span class="pre">gammatone.gtgram</span></tt></a> &#8211; spectrogram-like gammatone analysis<a class="headerlink" href="#module-gammatone.gtgram" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="gammatone.gtgram.gtgram">
+<tt class="descclassname">gammatone.gtgram.</tt><tt class="descname">gtgram</tt><big>(</big><em>wave</em>, <em>fs</em>, <em>window_time</em>, <em>hop_time</em>, <em>channels</em>, <em>f_min</em>, <em>f_max</em><big>)</big><a class="headerlink" href="#gammatone.gtgram.gtgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a spectrogram-like time frequency magnitude array based on
+gammatone subband filters. The waveform <tt class="docutils literal"><span class="pre">wave</span></tt> (at sample rate <tt class="docutils literal"><span class="pre">fs</span></tt>) is
+passed through an multi-channel gammatone auditory model filterbank, with
+lowest frequency <tt class="docutils literal"><span class="pre">f_min</span></tt> and highest frequency <tt class="docutils literal"><span class="pre">f_max</span></tt>. The outputs of
+each band then have their energy integrated over windows of <tt class="docutils literal"><span class="pre">window_time</span></tt>
+seconds, advancing by <tt class="docutils literal"><span class="pre">hop_time</span></tt> secs for successive columns. These
+magnitudes are returned as a nonnegative real matrix with <tt class="docutils literal"><span class="pre">channels</span></tt> rows.</p>
+<div class="line-block">
+<div class="line">2009-02-23 Dan Ellis <a class="reference external" href="mailto:dpwe&#37;&#52;&#48;ee&#46;columbia&#46;edu">dpwe<span>&#64;</span>ee<span>&#46;</span>columbia<span>&#46;</span>edu</a></div>
+<div class="line"><br /></div>
+<div class="line">(c) 2013 Jason Heeris (Python implementation)</div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.gtgram.gtgram_strides">
+<tt class="descclassname">gammatone.gtgram.</tt><tt class="descname">gtgram_strides</tt><big>(</big><em>fs</em>, <em>window_time</em>, <em>hop_time</em>, <em>filterbank_cols</em><big>)</big><a class="headerlink" href="#gammatone.gtgram.gtgram_strides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the window size for a gammatonegram.</p>
+<p>&#64;return a tuple of (window_size, hop_samples, output_columns)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.gtgram.gtgram_xe">
+<tt class="descclassname">gammatone.gtgram.</tt><tt class="descname">gtgram_xe</tt><big>(</big><em>wave</em>, <em>fs</em>, <em>channels</em>, <em>f_min</em><big>)</big><a class="headerlink" href="#gammatone.gtgram.gtgram_xe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the intermediate ERB filterbank processed matrix</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.gtgram.round_half_away_from_zero">
+<tt class="descclassname">gammatone.gtgram.</tt><tt class="descname">round_half_away_from_zero</tt><big>(</big><em>num</em><big>)</big><a class="headerlink" href="#gammatone.gtgram.round_half_away_from_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the round-half-away-from-zero rule, where fractional parts of
+0.5 result in rounding up to the nearest positive integer for positive
+numbers, and down to the nearest negative number for negative integers.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="filters.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">gammatone.filters</span></tt> &#8211; gammatone filterbank construction</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/gtgram.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="filters.html" title="gammatone.filters – gammatone filterbank construction"
+             >previous</a> |</li>
+        <li><a href="index.html">gammatone 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Jason Heeris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

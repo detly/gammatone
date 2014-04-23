@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gammatone.filters – gammatone filterbank construction &mdash; gammatone 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gammatone 1.0 documentation" href="index.html" />
+    <link rel="next" title="gammatone.gtgram – spectrogram-like gammatone analysis" href="gtgram.html" />
+    <link rel="prev" title="Gammatone filterbank toolkit documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gtgram.html" title="gammatone.gtgram – spectrogram-like gammatone analysis"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Gammatone filterbank toolkit documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">gammatone 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-gammatone.filters">
+<span id="gammatone-filters-gammatone-filterbank-construction"></span><h1><a class="reference internal" href="#module-gammatone.filters" title="gammatone.filters"><tt class="xref py py-mod docutils literal"><span class="pre">gammatone.filters</span></tt></a> &#8211; gammatone filterbank construction<a class="headerlink" href="#module-gammatone.filters" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functions for constructing sets of equivalent rectangular
+bandwidth gammatone filters.</p>
+<dl class="function">
+<dt id="gammatone.filters.centre_freqs">
+<tt class="descclassname">gammatone.filters.</tt><tt class="descname">centre_freqs</tt><big>(</big><em>fs</em>, <em>num_freqs</em>, <em>cutoff</em><big>)</big><a class="headerlink" href="#gammatone.filters.centre_freqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates an array of centre frequencies (for <a class="reference internal" href="#gammatone.filters.make_erb_filters" title="gammatone.filters.make_erb_filters"><tt class="xref py py-func docutils literal"><span class="pre">make_erb_filters()</span></tt></a>)
+from a sampling frequency, lower cutoff frequency and the desired number of
+filters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fs</strong> &#8211; sampling rate</li>
+<li><strong>num_freqs</strong> (<em>int</em>) &#8211; number of centre frequencies to calculate</li>
+<li><strong>cutoff</strong> &#8211; lower cutoff frequency</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">same as <a class="reference internal" href="#gammatone.filters.erb_space" title="gammatone.filters.erb_space"><tt class="xref py py-func docutils literal"><span class="pre">erb_space()</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.filters.erb_filterbank">
+<tt class="descclassname">gammatone.filters.</tt><tt class="descname">erb_filterbank</tt><big>(</big><em>wave</em>, <em>coefs</em><big>)</big><a class="headerlink" href="#gammatone.filters.erb_filterbank" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wave</strong> &#8211; input data (one dimensional sequence)</li>
+<li><strong>coefs</strong> &#8211; gammatone filter coefficients</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Process an input waveform with a gammatone filter bank. This function takes
+a single sound vector, and returns an array of filter outputs, one channel
+per row.</p>
+<p>The fcoefs parameter, which completely specifies the Gammatone filterbank,
+should be designed with the <a class="reference internal" href="#gammatone.filters.make_erb_filters" title="gammatone.filters.make_erb_filters"><tt class="xref py py-func docutils literal"><span class="pre">make_erb_filters()</span></tt></a> function.</p>
+<div class="line-block">
+<div class="line">Malcolm Slaney &#64; Interval, June 11, 1998.</div>
+<div class="line">(c) 1998 Interval Research Corporation</div>
+<div class="line">Thanks to Alain de Cheveigne&#8217; for his suggestions and improvements.</div>
+<div class="line"><br /></div>
+<div class="line">(c) 2013 Jason Heeris (Python implementation)</div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.filters.erb_space">
+<tt class="descclassname">gammatone.filters.</tt><tt class="descname">erb_space</tt><big>(</big><em>low_freq=100</em>, <em>high_freq=11025.0</em>, <em>num=100</em><big>)</big><a class="headerlink" href="#gammatone.filters.erb_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes an array of <tt class="docutils literal"><span class="pre">num</span></tt> frequencies uniformly spaced
+between <tt class="docutils literal"><span class="pre">high_freq</span></tt> and <tt class="docutils literal"><span class="pre">low_freq</span></tt> on an ERB scale.</p>
+<p>For a definition of ERB, see Moore, B. C. J., and Glasberg, B. R. (1983).
+&#8220;Suggested formulae for calculating auditory-filter bandwidths and
+excitation patterns,&#8221; J. Acoust. Soc. Am. 74, 750-753.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.filters.make_erb_filters">
+<tt class="descclassname">gammatone.filters.</tt><tt class="descname">make_erb_filters</tt><big>(</big><em>fs</em>, <em>centre_freqs</em>, <em>width=1.0</em><big>)</big><a class="headerlink" href="#gammatone.filters.make_erb_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes the filter coefficients for a bank of 
+Gammatone filters. These filters were defined by Patterson and Holdworth for
+simulating the cochlea.</p>
+<p>The result is returned as a <tt class="xref py py-class docutils literal"><span class="pre">ERBCoeffArray</span></tt>. Each row of the
+filter arrays contains the coefficients for four second order filters. The
+transfer function for these four filters share the same denominator (poles)
+but have different numerators (zeros). All of these coefficients are
+assembled into one vector that the ERBFilterBank can take apart to implement
+the filter.</p>
+<p>The filter bank contains &#8220;numChannels&#8221; channels that extend from
+half the sampling rate (fs) to &#8220;lowFreq&#8221;. Alternatively, if the numChannels
+input argument is a vector, then the values of this vector are taken to be
+the center frequency of each desired filter. (The lowFreq argument is
+ignored in this case.)</p>
+<p>Note this implementation fixes a problem in the original code by
+computing four separate second order filters. This avoids a big problem with
+round off errors in cases of very small cfs (100Hz) and large sample rates
+(44kHz). The problem is caused by roundoff error when a number of poles are
+combined, all very close to the unit circle. Small errors in the eigth order
+coefficient, are multiplied when the eigth root is taken to give the pole
+location. These small errors lead to poles outside the unit circle and
+instability. Thanks to Julius Smith for leading me to the proper
+explanation.</p>
+<p>Execute the following code to evaluate the frequency response of a 10
+channel filterbank:</p>
+<div class="highlight-python"><div class="highlight"><pre>fcoefs = MakeERBFilters(16000,10,100);
+y = ERBFilterBank([1 zeros(1,511)], fcoefs);
+resp = 20*log10(abs(fft(y&#39;)));
+freqScale = (0:511)/512*16000;
+semilogx(freqScale(1:255),resp(1:255,:));
+axis([100 16000 -60 0])
+xlabel(&#39;Frequency (Hz)&#39;); ylabel(&#39;Filter Response (dB)&#39;);
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Rewritten by Malcolm <a class="reference external" href="mailto:Slaney&#37;&#52;&#48;Interval">Slaney<span>&#64;</span>Interval</a>.  June 11, 1998.</div>
+<div class="line">(c) 1998 Interval Research Corporation</div>
+<div class="line"><br /></div>
+<div class="line">(c) 2012 Jason Heeris (Python implementation)</div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Gammatone filterbank toolkit documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gtgram.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">gammatone.gtgram</span></tt> &#8211; spectrogram-like gammatone analysis</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/filters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gtgram.html" title="gammatone.gtgram – spectrogram-like gammatone analysis"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Gammatone filterbank toolkit documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">gammatone 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Jason Heeris.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -13,5 +13,12 @@ setup(
         'scipy',
         'nose',
         'mock',
+        'scikits.audiolab >= 0.11.0.p3.1',
     ],
+    
+    # Until the upstream audiolab project supports Python 3, a port is available
+    # here:
+    dependency_links = [
+        'https://github.com/detly/audiolab/archive/0.11.0.p3.1.zip#egg=scikits.audiolab-0.11.0.p3.1',
+    ]
 )

@@ -7,7 +7,11 @@ Plotting utilities related to gammatone analysis, primarily for use with
 ``matplotlib``.
 """
 import matplotlib.ticker
+import numpy as np
+import scipy.constants
+
 from .filters import erb_point
+import gammatone.gtgram
 
 
 class ERBFormatter(matplotlib.ticker.EngFormatter):
@@ -43,3 +47,28 @@ class ERBFormatter(matplotlib.ticker.EngFormatter):
         newval = self._erb_axis_scale(val)
         return super().__call__(newval, pos)
     
+
+def gtgram_plot(
+        axes, x, fs,
+        window_time, hop_time, channels, f_min,
+        imshow_args=None
+        ):
+    """
+    Plots a spectrogram-like time frequency magnitude array based on gammatone
+    subband filters. See the documentation for :func:`gtgram.gtgram`.
+    """
+    # Set a nice formatter for the y-axis
+    formatter = ERBFormatter(f_min, fs/2, unit='Hz', places=0)
+    axes.yaxis.set_major_formatter(formatter)
+    
+    # Figure out time axis scaling
+    duration = len(x) / fs
+    
+    # Calculate 1:1 aspect ratio
+    aspect_ratio = duration/scipy.constants.golden
+    
+    gtg = gammatone.gtgram.gtgram(x, fs, window_time, hop_time, channels, f_min)
+    Z = np.flipud(20 * np.log10(gtg))
+    
+    img = axes.imshow(Z, extent=[0, duration, 1, 0], aspect=aspect_ratio)
+

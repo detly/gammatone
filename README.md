@@ -12,37 +12,8 @@ code, detailed below, to Python 3 using Numpy and Scipy.
 Using the Code
 --------------
 
-At the moment there are only library functions (ie. no CLI entry points). The
-module is named `gammatone`.
-
-```python3
-from matplotlib import pyplot as plt
-import numpy as np
-
-from gammatone import gtgram
-
-# 48kHz sampling rate
-fs = 48000
-ts = np.linspace(0, 1, num=fs, endpoint=False)
-
-# 220Hz sine wave modulated by +/- 40 Hz
-cfreq = 220
-mfreq = 40
-modulated = np.cos(2 * np.pi * mfreq * ts)
-signal = np.cos(2 * np.pi * cfreq * ts + modulated)
-
-# Gammatone-based spectrogram
-twin = 0.008
-thop = twin/2
-channels = 256
-fmin = 20
-fmax = fs/2
-
-gtg = gtgram.gtgram(signal, fs, twin, thop, channels, fmin, fmax)
-Z = np.flipud(20 * np.log10(gtg))
-plt.imshow(Z)
-plt.show()
-```
+The module is named `gammatone`, and you can run `demo.py` to see a
+gammatone-gram of Beethoven's "Für Elise" (the first few seconds of it, anyway).
 
 Basis
 -----

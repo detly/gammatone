@@ -17,7 +17,7 @@ INPUT_KEY  = 'gammatonegram_inputs'
 MOCK_KEY   = 'gammatonegram_mocks'
 RESULT_KEY = 'gammatonegram_results'
 
-INPUT_COLS  = ('name', 'wave', 'fs', 'twin', 'thop', 'channels', 'fmin', 'fmax')
+INPUT_COLS  = ('name', 'wave', 'fs', 'twin', 'thop', 'channels', 'fmin')
 MOCK_COLS   = ('erb_fb', 'erb_fb_cols')
 RESULT_COLS = ('gtgram', 'nwin', 'hopsamps', 'ncols')
 
@@ -86,8 +86,7 @@ def test_gtgram():
             inputs['twin'],
             inputs['thop'],
             inputs['channels'],
-            inputs['fmin'],
-            inputs['fmax']
+            inputs['fmin']
         )
         
         yield GammatonegramTester(

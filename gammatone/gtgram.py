@@ -53,7 +53,7 @@ def gtgram(
     fs,
     window_time, hop_time,
     channels,
-    f_min, f_max):
+    f_min):
     """
     Calculate a spectrogram-like time frequency magnitude array based on
     gammatone subband filters. The waveform ``wave`` (at sample rate ``fs``) is

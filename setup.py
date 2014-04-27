@@ -14,6 +14,7 @@ setup(
         'scipy',
         'nose',
         'mock',
+        'matplotlib',
         'scikits.audiolab >= 0.11.0.p3.1',
     ],
     

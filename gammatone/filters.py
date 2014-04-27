@@ -14,6 +14,41 @@ DEFAULT_LOW_FREQ = 100
 DEFAULT_HIGH_FREQ = 44100/4
 
 
+def erb_point(low_freq, high_freq, fraction):
+    """
+    Calculates a single point on an ERB scale between ``low_freq`` and
+    ``high_freq``, determined by ``fraction``. When ``fraction`` is ``1``,
+    ``low_freq`` will be returned. When ``fraction`` is ``0``, ``high_freq``
+    will be returned.
+    
+    ``fraction`` can actually be outside the range ``[0, 1]``, which in general
+    isn't very meaningful, but might be useful when ``fraction`` is rounded a
+    little above or below ``[0, 1]`` (eg. for plot axis labels).
+    """
+    # Change the following three parameters if you wish to use a different ERB
+    # scale. Must change in MakeERBCoeffs too.
+    # TODO: Factor these parameters out
+    ear_q = 9.26449 # Glasberg and Moore Parameters
+    min_bw = 24.7
+    order = 1
+
+    # All of the following expressions are derived in Apple TR #35, "An
+    # Efficient Implementation of the Patterson-Holdsworth Cochlear Filter
+    # Bank." See pages 33-34.
+    erb_point = (
+        -ear_q*min_bw
+        + np.exp(
+            fraction * (
+                -np.log(high_freq + ear_q*min_bw)
+                + np.log(low_freq + ear_q*min_bw)
+                )
+        ) *
+        (high_freq + ear_q*min_bw)
+    )
+    
+    return erb_point
+
+
 def erb_space(
     low_freq=DEFAULT_LOW_FREQ,
     high_freq=DEFAULT_HIGH_FREQ,
@@ -26,28 +61,11 @@ def erb_space(
     "Suggested formulae for calculating auditory-filter bandwidths and
     excitation patterns," J. Acoust. Soc. Am. 74, 750-753.
     """
-    # Change the following three parameters if you wish to use a different ERB
-    # scale. Must change in MakeERBCoeffs too.
-    # TODO: Factor these parameters out
-    ear_q = 9.26449 # Glasberg and Moore Parameters
-    min_bw = 24.7
-    order = 1
-
-    # All of the following expressions are derived in Apple TR #35, "An
-    # Efficient Implementation of the Patterson-Holdsworth Cochlear Filter
-    # Bank." See pages 33-34.
-    cf_array = (
-        -ear_q*min_bw
-        + np.exp(
-            np.arange(1, num+1) * (
-                -np.log(high_freq + ear_q*min_bw)
-                + np.log(low_freq + ear_q*min_bw)
-                )/num
-        ) *
-        (high_freq + ear_q*min_bw)
-    )
-    
-    return cf_array
+    return erb_point(
+        low_freq,
+        high_freq,
+        np.arange(1, num+1)/num
+        )
 
 
 def centre_freqs(fs, num_freqs, cutoff):

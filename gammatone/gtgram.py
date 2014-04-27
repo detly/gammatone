@@ -38,7 +38,8 @@ def gtgram_strides(fs, window_time, hop_time, filterbank_cols):
 
 def gtgram_xe(wave, fs, channels, f_min):
     """ Calculate the intermediate ERB filterbank processed matrix """
-    fcoefs = np.flipud(make_erb_filters(fs, centre_freqs(fs, channels, f_min)))
+    cfs = centre_freqs(fs, channels, f_min)
+    fcoefs = np.flipud(make_erb_filters(fs, cfs))
     xf = erb_filterbank(wave, fcoefs)
     xe = np.power(xf, 2)
     return xe
@@ -65,7 +66,7 @@ def gtgram(
     """
     xe = gtgram_xe(wave, fs, channels, f_min)    
     
-    nwin , hop_samples, ncols = gtgram_strides(
+    nwin, hop_samples, ncols = gtgram_strides(
         fs,
         window_time,
         hop_time,

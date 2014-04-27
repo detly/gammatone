@@ -1,3 +1,7 @@
+% Copyright 2014 Jason Heeris, jason.heeris@gmail.com
+% 
+% This file is part of the gammatone toolkit, and is licensed under the 3-clause
+% BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 function test_fft2gtmx()
     % Arguments:
     % nfft, sr, nfilts, width, minfreq, maxfreq, maxlen

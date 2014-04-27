@@ -15,6 +15,8 @@ Using the Code
 The module is named `gammatone`, and you can run `demo.py` to see a
 gammatone-gram of Beethoven's "Für Elise" (the first few seconds of it, anyway).
 
+![Gammatone-based spectrogram of Für Elise](samples/FurElise.png)
+
 Basis
 -----
 

@@ -22,5 +22,11 @@ setup(
     # here:
     dependency_links = [
         'https://github.com/detly/audiolab/archive/0.11.0.p3.1.zip#egg=scikits.audiolab-0.11.0.p3.1',
-    ]
+    ],
+
+    entry_points = {
+        'console_scripts': [
+            'gammatone = gammatone.plot:main',
+        ]
+    }
 )

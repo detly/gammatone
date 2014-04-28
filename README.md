@@ -7,15 +7,66 @@ Summary
 -------
 
 This is a port of Malcolm Slaney's and Dan Ellis' gammatone filterbank MATLAB
-code, detailed below, to Python 3 using Numpy and Scipy.
+code, detailed below, to Python 3 using Numpy and Scipy. It analyses signals by
+running them through banks of gammatone filters, similar to Fourier-based
+spectrogram analysis.
+
+![Gammatone-based spectrogram of Für Elise](samples/FurElise.png)
+
+Installation
+------------
+
+You can install directly from this git repository using:
+
+```text
+pip install git+https://github.com/detly/gammatone.git
+```
+
+...or you can clone the git repository however you prefer, and do:
+
+```text
+pip install .
+```
+
+...or:
+
+```
+python setup.py install
+```
+
+...from the cloned tree.
+
+### Dependencies
+
+ - numpy
+ - scipy
+ - nose
+ - mock
+ - matplotlib
+ - scikits.audiolab >= 0.11.0.p3.1
+
+Because the authoritative version of `audiolab` hasn't been ported to Python 3
+yet, you will need to install [my port](https://github.com/detly/audiolab).
 
 Using the Code
 --------------
 
-The module is named `gammatone`, and you can run `demo.py` to see a
-gammatone-gram of Beethoven's "Für Elise" (the first few seconds of it, anyway).
+The module is named `gammatone`. You can run:
 
-![Gammatone-based spectrogram of Für Elise](samples/FurElise.png)
+```text
+python -m gammatone samples/FurElise.ogg -d 10
+```
+
+...to see a gammatone-gram of the first ten seconds of Beethoven's "Für Elise"
+(the first few seconds of it, anyway). If you've installed via `pip` or
+`setup.py install`, you should also be able to just run:
+
+```text
+gammatone samples/FurElise.ogg -d 10
+```
+
+A note of warning: if you don't use the `-d` flag, the gammatone analysis will
+consume a *lot* of memory.
 
 Basis
 -----

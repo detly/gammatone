@@ -51,7 +51,8 @@ yet, you will need to install [my port](https://github.com/detly/audiolab).
 Using the Code
 --------------
 
-The module is named `gammatone`. You can run:
+See the [API documentation](http://detly.github.io/gammatone/). For a
+demonstration, you can run:
 
 ```text
 python -m gammatone samples/FurElise.ogg -d 10

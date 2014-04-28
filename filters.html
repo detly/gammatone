@@ -110,6 +110,18 @@ should be designed with the <a class="reference internal" href="#gammatone.filte
 </dd></dl>
 
 <dl class="function">
+<dt id="gammatone.filters.erb_point">
+<tt class="descclassname">gammatone.filters.</tt><tt class="descname">erb_point</tt><big>(</big><em>low_freq</em>, <em>high_freq</em>, <em>fraction</em><big>)</big><a class="headerlink" href="#gammatone.filters.erb_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates a single point on an ERB scale between <tt class="docutils literal"><span class="pre">low_freq</span></tt> and
+<tt class="docutils literal"><span class="pre">high_freq</span></tt>, determined by <tt class="docutils literal"><span class="pre">fraction</span></tt>. When <tt class="docutils literal"><span class="pre">fraction</span></tt> is <tt class="docutils literal"><span class="pre">1</span></tt>,
+<tt class="docutils literal"><span class="pre">low_freq</span></tt> will be returned. When <tt class="docutils literal"><span class="pre">fraction</span></tt> is <tt class="docutils literal"><span class="pre">0</span></tt>, <tt class="docutils literal"><span class="pre">high_freq</span></tt>
+will be returned.</p>
+<p><tt class="docutils literal"><span class="pre">fraction</span></tt> can actually be outside the range <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></tt>, which in general
+isn&#8217;t very meaningful, but might be useful when <tt class="docutils literal"><span class="pre">fraction</span></tt> is rounded a
+little above or below <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></tt> (eg. for plot axis labels).</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="gammatone.filters.erb_space">
 <tt class="descclassname">gammatone.filters.</tt><tt class="descname">erb_space</tt><big>(</big><em>low_freq=100</em>, <em>high_freq=11025.0</em>, <em>num=100</em><big>)</big><a class="headerlink" href="#gammatone.filters.erb_space" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function computes an array of <tt class="docutils literal"><span class="pre">num</span></tt> frequencies uniformly spaced

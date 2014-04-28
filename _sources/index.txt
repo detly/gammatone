@@ -12,6 +12,7 @@ Contents:
    filters
    gtgram
    fftweight
+   plot
    
 Indices and tables
 ==================

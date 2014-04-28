@@ -36,7 +36,7 @@ def fft_weights(
     Note about `maxlen` parameter: While wts has nfft columns, the second half
     are all zero. Hence, aud spectrum is::
     
-    fft2gammatonemx(nfft,sr)*abs(fft(xincols,nfft))
+        fft2gammatonemx(nfft,sr)*abs(fft(xincols,nfft))
     
     `maxlen` truncates the rows to this many bins.
     

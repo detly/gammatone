@@ -1,6 +1,8 @@
 Gammatone Filterbank Toolkit
 ============================
 
+*Utilities for analysing sound using perceptual models of human hearing.*
+
 Jason Heeris, 2013
 
 Summary
@@ -11,7 +13,7 @@ code, detailed below, to Python 3 using Numpy and Scipy. It analyses signals by
 running them through banks of gammatone filters, similar to Fourier-based
 spectrogram analysis.
 
-![Gammatone-based spectrogram of Für Elise](samples/FurElise.png)
+![Gammatone-based spectrogram of Für Elise](doc/FurElise.png)
 
 Installation
 ------------
@@ -58,9 +60,9 @@ demonstration, you can run:
 python -m gammatone samples/FurElise.ogg -d 10
 ```
 
-...to see a gammatone-gram of the first ten seconds of Beethoven's "Für Elise"
-(the first few seconds of it, anyway). If you've installed via `pip` or
-`setup.py install`, you should also be able to just run:
+...to see a gammatone-gram of the first ten seconds of Beethoven's "Für Elise."
+If you've installed via `pip` or `setup.py install`, you should also be able to
+just run:
 
 ```text
 gammatone samples/FurElise.ogg -d 10

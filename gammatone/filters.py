@@ -157,31 +157,28 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     # TODO: This could be simplified to a matrix calculation involving the
     # constant first term and the alternating rt_pos/rt_neg and +/-1 second
     # terms
-    A11 = -(2*T*np.cos(arg)/np.exp(B*T) + 2*rt_pos*T*np.sin(arg)/
-            np.exp(B*T))/2
-    A12 = -(2*T*np.cos(arg)/np.exp(B*T) - 2*rt_pos*T*np.sin(arg)/
-            np.exp(B*T))/2
-    A13 = -(2*T*np.cos(arg)/np.exp(B*T) + 2*rt_neg*T*np.sin(arg)/ 
-            np.exp(B*T))/2
-    A14 = -(2*T*np.cos(arg)/np.exp(B*T) - 2*rt_neg*T*np.sin(arg)/
-            np.exp(B*T))/2
+    common = -T / np.exp(B * T)
+    A11 = common * (np.cos(arg) + rt_pos * np.sin(arg))
+    A12 = common * (np.cos(arg) - rt_pos * np.sin(arg))
+    A13 = common * (np.cos(arg) + rt_neg * np.sin(arg))
+    A14 = common * (np.cos(arg) - rt_neg * np.sin(arg))
 
-    gain = np.abs((-2*vec*T +
-                     2*np.exp(-(B*T) + 1j*arg)*T* 
+    gain = T**4 * np.abs((-vec +
+                     np.exp(-(B*T) + 1j*arg)* 
                              (np.cos(arg) - rt_neg* 
                               np.sin(arg))) *
-               (-2*vec*T +
-                 2*np.exp(-(B*T) + 1j*arg)*T*
+               (-vec +
+                 np.exp(-(B*T) + 1j*arg)*
                   (np.cos(arg) + rt_neg *
                    np.sin(arg)))*
-               (-2*vec*T +
-                 2*np.exp(-(B*T) + 1j*arg)*T*
+               (-vec +
+                 np.exp(-(B*T) + 1j*arg)*
                   (np.cos(arg) -
                    rt_pos*np.sin(arg))) *
-               (-2*vec*T + 2*np.exp(-(B*T) + 1j*arg)*T*
+               (-vec + np.exp(-(B*T) + 1j*arg)*
                (np.cos(arg) + rt_pos*np.sin(arg))) /
-              (-2 / np.exp(2*B*T) - 2*vec +
-               2*(1 + vec)/np.exp(B*T))**4)
+              (-1 / np.exp(2*B*T) - vec +
+               (1 + vec)/np.exp(B*T))**4)
         
     allfilts = np.ones_like(centre_freqs)
     

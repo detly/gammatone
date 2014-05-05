@@ -157,29 +157,20 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     # TODO: This could be simplified to a matrix calculation involving the
     # constant first term and the alternating rt_pos/rt_neg and +/-1 second
     # terms
-    common = -T / np.exp(B * T)
+    common = -T * np.exp(-(B * T))
     A11 = common * (np.cos(arg) + rt_pos * np.sin(arg))
     A12 = common * (np.cos(arg) - rt_pos * np.sin(arg))
     A13 = common * (np.cos(arg) + rt_neg * np.sin(arg))
     A14 = common * (np.cos(arg) - rt_neg * np.sin(arg))
 
-    gain = T**4 * np.abs((-vec +
-                     np.exp(-(B*T) + 1j*arg)* 
-                             (np.cos(arg) - rt_neg* 
-                              np.sin(arg))) *
-               (-vec +
-                 np.exp(-(B*T) + 1j*arg)*
-                  (np.cos(arg) + rt_neg *
-                   np.sin(arg)))*
-               (-vec +
-                 np.exp(-(B*T) + 1j*arg)*
-                  (np.cos(arg) -
-                   rt_pos*np.sin(arg))) *
-               (-vec + np.exp(-(B*T) + 1j*arg)*
-               (np.cos(arg) + rt_pos*np.sin(arg))) /
-              (-1 / np.exp(2*B*T) - vec +
-               (1 + vec)/np.exp(B*T))**4)
-        
+    gain = np.abs(
+            (T * vec + np.exp(1j * arg) * A11)
+          * (T * vec + np.exp(1j * arg) * A12)
+          * (T * vec + np.exp(1j * arg) * A13)
+          * (T * vec + np.exp(1j * arg) * A14)
+          / (-1 / np.exp(2*B*T) - vec + (1 + vec)/np.exp(B*T))**4
+        )
+
     allfilts = np.ones_like(centre_freqs)
     
     fcoefs = np.column_stack([

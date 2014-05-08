@@ -154,21 +154,31 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     rt_pos = np.sqrt(3 + 2**1.5)
     rt_neg = np.sqrt(3 - 2**1.5)
     
+    common = -T * np.exp(-(B * T))
+    
     # TODO: This could be simplified to a matrix calculation involving the
     # constant first term and the alternating rt_pos/rt_neg and +/-1 second
     # terms
-    common = -T * np.exp(-(B * T))
-    A11 = common * (np.cos(arg) + rt_pos * np.sin(arg))
-    A12 = common * (np.cos(arg) - rt_pos * np.sin(arg))
-    A13 = common * (np.cos(arg) + rt_neg * np.sin(arg))
-    A14 = common * (np.cos(arg) - rt_neg * np.sin(arg))
+    k11 = np.cos(arg) + rt_pos * np.sin(arg)
+    k12 = np.cos(arg) - rt_pos * np.sin(arg)
+    k13 = np.cos(arg) + rt_neg * np.sin(arg)
+    k14 = np.cos(arg) - rt_neg * np.sin(arg)
+
+    A11 = common * k11
+    A12 = common * k12
+    A13 = common * k13
+    A14 = common * k14
+
+    gain_arg = np.exp(1j * arg - B * T)
 
     gain = np.abs(
-            (T * vec + np.exp(1j * arg) * A11)
-          * (T * vec + np.exp(1j * arg) * A12)
-          * (T * vec + np.exp(1j * arg) * A13)
-          * (T * vec + np.exp(1j * arg) * A14)
-          / (-1 / np.exp(2*B*T) - vec + (1 + vec)/np.exp(B*T))**4
+            (vec - gain_arg * k11)
+          * (vec - gain_arg * k12)
+          * (vec - gain_arg * k13)
+          * (vec - gain_arg * k14)
+          * (  T * np.exp(B*T)
+             / (-1 / np.exp(B*T) + 1 + vec * (1 - np.exp(B*T)))
+            )**4
         )
 
     allfilts = np.ones_like(centre_freqs)

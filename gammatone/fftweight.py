@@ -43,7 +43,8 @@ def fft_weights(
     | (c) 2004-2009 Dan Ellis dpwe@ee.columbia.edu  based on rastamat/audspec.m
     | (c) 2012 Jason Heeris (Python implementation)
     """
-    ucirc = np.exp(1j*2*np.pi*np.arange(0, (nfft/2)+1)/nfft)
+    ucirc_range = nfft/2 + 1
+    ucirc = np.exp(1j*2*np.pi*np.arange(0, ucirc_range)/nfft)[None, ...]
     
     # Common ERB filter code factored out
     cf_array = filters.erb_space(fmin, fmax, nfilts)
@@ -53,23 +54,22 @@ def fft_weights(
         filters.make_erb_filters(fs, cf_array, width).T
     )
     
+    A11, A12, A13, A14 = A11[..., None], A12[..., None], A13[..., None], A14[..., None]
+
     r = np.sqrt(B2)
     theta = 2*np.pi*cf_array/fs    
-    pole = np.expand_dims(r*np.exp(1j*theta), 1)
+    pole = (r*np.exp(1j*theta))[..., None]
     
     GTord = 4
     
     weights = np.zeros((nfilts, nfft))
     
-    for index in range(0, nfilts):
-        weights[index, 0:nfft/2+1] = (
-              (fs**-4 / gain[index])
-            * np.abs(ucirc - (-A11[index]*fs)) * np.abs(ucirc - (-A12[index]*fs))
-            * np.abs(ucirc - (-A13[index]*fs)) * np.abs(ucirc - (-A14[index]*fs))
-            * (
-                np.abs((pole[index] - ucirc) * (pole[index].conj() - ucirc)) ** (-GTord)
-            )
-        )
+    weights[:, 0:ucirc_range] = (
+          np.abs(ucirc + A11 * fs) * np.abs(ucirc + A12 * fs)
+        * np.abs(ucirc + A13 * fs) * np.abs(ucirc + A14 * fs)
+        * np.abs(fs * (pole - ucirc) * (pole.conj() - ucirc)) ** (-GTord)
+        / gain[..., None]
+    )
 
     weights = weights[:, 0:maxlen]
 

@@ -17,6 +17,7 @@ import scipy.constants
 
 from .filters import erb_point
 import gammatone.gtgram
+import gammatone.fftweight
 
 
 class ERBFormatter(matplotlib.ticker.EngFormatter):
@@ -72,7 +73,7 @@ def gtgram_plot(
     # Calculate 1:1 aspect ratio
     aspect_ratio = duration/scipy.constants.golden
     
-    gtg = gammatone.gtgram.gtgram(x, fs, window_time, hop_time, channels, f_min)
+    gtg = gammatone.fftweight.fft_gtgram(x, fs, window_time, hop_time, channels, f_min)
     Z = np.flipud(20 * np.log10(gtg))
     
     img = axes.imshow(Z, extent=[0, duration, 1, 0], aspect=aspect_ratio)
@@ -136,7 +137,7 @@ def render_audio_from_file(path, duration):
     axes.set_ylabel("Frequency")
 
     matplotlib.pyplot.show()
-
+    
 
 def main():
     """

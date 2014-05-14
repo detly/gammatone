@@ -61,9 +61,27 @@ note the inversion).</p>
 
 <dl class="function">
 <dt id="gammatone.plot.gtgram_plot">
-<tt class="descclassname">gammatone.plot.</tt><tt class="descname">gtgram_plot</tt><big>(</big><em>axes</em>, <em>x</em>, <em>fs</em>, <em>window_time</em>, <em>hop_time</em>, <em>channels</em>, <em>f_min</em>, <em>imshow_args=None</em><big>)</big><a class="headerlink" href="#gammatone.plot.gtgram_plot" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">gammatone.plot.</tt><tt class="descname">gtgram_plot</tt><big>(</big><em>gtgram_function</em>, <em>axes</em>, <em>x</em>, <em>fs</em>, <em>window_time</em>, <em>hop_time</em>, <em>channels</em>, <em>f_min</em>, <em>imshow_args=None</em><big>)</big><a class="headerlink" href="#gammatone.plot.gtgram_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a spectrogram-like time frequency magnitude array based on gammatone
-subband filters. See the documentation for <tt class="xref py py-func docutils literal"><span class="pre">gtgram.gtgram()</span></tt>.</p>
+subband filters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gtgram_function</strong> &#8211; <p>A function with signature:</p>
+<dl class="docutils">
+<dt>fft_gtgram(</dt>
+<dd>wave,
+fs,
+window_time, hop_time,
+channels,
+f_min)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="gtgram.html#gammatone.gtgram.gtgram" title="gammatone.gtgram.gtgram"><tt class="xref py py-func docutils literal"><span class="pre">gammatone.gtgram.gtgram()</span></tt></a> for details of the paramters.</p>
 </dd></dl>
 
 <dl class="function">
@@ -74,8 +92,9 @@ subband filters. See the documentation for <tt class="xref py py-func docutils l
 
 <dl class="function">
 <dt id="gammatone.plot.render_audio_from_file">
-<tt class="descclassname">gammatone.plot.</tt><tt class="descname">render_audio_from_file</tt><big>(</big><em>path</em>, <em>duration</em><big>)</big><a class="headerlink" href="#gammatone.plot.render_audio_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the given <tt class="docutils literal"><span class="pre">duration</span></tt> of audio from the audio file at <tt class="docutils literal"><span class="pre">path</span></tt>.</p>
+<tt class="descclassname">gammatone.plot.</tt><tt class="descname">render_audio_from_file</tt><big>(</big><em>path</em>, <em>duration</em>, <em>function</em><big>)</big><a class="headerlink" href="#gammatone.plot.render_audio_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the given <tt class="docutils literal"><span class="pre">duration</span></tt> of audio from the audio file at <tt class="docutils literal"><span class="pre">path</span></tt>
+using the gammatone spectrogram function <tt class="docutils literal"><span class="pre">function</span></tt>.</p>
 </dd></dl>
 
 </div>

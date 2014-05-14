@@ -51,6 +51,25 @@
 <p>This module contains functions for calculating weights to approximate a
 gammatone filterbank-like &#8220;spectrogram&#8221; from a Fourier transform.</p>
 <dl class="function">
+<dt id="gammatone.fftweight.fft_gtgram">
+<tt class="descclassname">gammatone.fftweight.</tt><tt class="descname">fft_gtgram</tt><big>(</big><em>wave</em>, <em>fs</em>, <em>window_time</em>, <em>hop_time</em>, <em>channels</em>, <em>f_min</em><big>)</big><a class="headerlink" href="#gammatone.fftweight.fft_gtgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a spectrogram-like time frequency magnitude array based on
+an FFT-based approximation to gammatone subband filters.</p>
+<p>A matrix of weightings is calculated (using <tt class="xref py py-func docutils literal"><span class="pre">gtgram.fft_weights()</span></tt>), and
+applied to the FFT of the input signal (<tt class="docutils literal"><span class="pre">wave</span></tt>, using sample rate <tt class="docutils literal"><span class="pre">fs</span></tt>).
+The result is an approximation of full filtering using an ERB gammatone
+filterbank (as per <tt class="xref py py-func docutils literal"><span class="pre">gtgram.gtgram()</span></tt>).</p>
+<p><tt class="docutils literal"><span class="pre">f_min</span></tt> determines the frequency cutoff for the corresponding gammatone
+filterbank. <tt class="docutils literal"><span class="pre">window_time</span></tt> and <tt class="docutils literal"><span class="pre">hop_time</span></tt> (both in seconds) are the size
+and overlap of the spectrogram columns.</p>
+<div class="line-block">
+<div class="line">2009-02-23 Dan Ellis <a class="reference external" href="mailto:dpwe&#37;&#52;&#48;ee&#46;columbia&#46;edu">dpwe<span>&#64;</span>ee<span>&#46;</span>columbia<span>&#46;</span>edu</a></div>
+<div class="line"><br /></div>
+<div class="line">(c) 2013 Jason Heeris (Python implementation)</div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="gammatone.fftweight.fft_weights">
 <tt class="descclassname">gammatone.fftweight.</tt><tt class="descname">fft_weights</tt><big>(</big><em>nfft</em>, <em>fs</em>, <em>nfilts</em>, <em>width</em>, <em>fmin</em>, <em>fmax</em>, <em>maxlen</em><big>)</big><a class="headerlink" href="#gammatone.fftweight.fft_weights" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -85,6 +104,34 @@ are all zero. Hence, aud spectrum is:</p>
 <div class="line">(c) 2004-2009 Dan Ellis <a class="reference external" href="mailto:dpwe&#37;&#52;&#48;ee&#46;columbia&#46;edu">dpwe<span>&#64;</span>ee<span>&#46;</span>columbia<span>&#46;</span>edu</a>  based on rastamat/audspec.m</div>
 <div class="line">(c) 2012 Jason Heeris (Python implementation)</div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.fftweight.specgram">
+<tt class="descclassname">gammatone.fftweight.</tt><tt class="descname">specgram</tt><big>(</big><em>x</em>, <em>n</em>, <em>sr</em>, <em>w</em>, <em>h</em><big>)</big><a class="headerlink" href="#gammatone.fftweight.specgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Substitute for Matlab&#8217;s specgram, calculates a simple spectrogram.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; The signal to analyse</li>
+<li><strong>n</strong> &#8211; The FFT length</li>
+<li><strong>sr</strong> &#8211; The sampling rate</li>
+<li><strong>w</strong> &#8211; The window length (see <a class="reference internal" href="#gammatone.fftweight.specgram_window" title="gammatone.fftweight.specgram_window"><tt class="xref py py-func docutils literal"><span class="pre">specgram_window()</span></tt></a>)</li>
+<li><strong>h</strong> &#8211; The hop size (must be greater than zero)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gammatone.fftweight.specgram_window">
+<tt class="descclassname">gammatone.fftweight.</tt><tt class="descname">specgram_window</tt><big>(</big><em>nfft</em>, <em>nwin</em><big>)</big><a class="headerlink" href="#gammatone.fftweight.specgram_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Window calculation used in specgram replacement function. Hann window of
+width <cite>nwin</cite> centred in an array of width <cite>nfft</cite>.</p>
 </dd></dl>
 
 </div>

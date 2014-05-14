@@ -42,9 +42,6 @@ Elise." If you've installed via
 
     gammatone samples/FurElise.ogg -d 10
 
-A note of warning: if you don't use the ``-d`` flag, the gammatone
-analysis will consume a *lot* of memory.
-
 Basis
 ~~~~~
 

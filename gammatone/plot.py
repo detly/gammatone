@@ -55,13 +55,25 @@ class ERBFormatter(matplotlib.ticker.EngFormatter):
     
 
 def gtgram_plot(
+        gtgram_function,
         axes, x, fs,
         window_time, hop_time, channels, f_min,
         imshow_args=None
         ):
     """
     Plots a spectrogram-like time frequency magnitude array based on gammatone
-    subband filters. See the documentation for :func:`gtgram.gtgram`.
+    subband filters.
+
+    :param gtgram_function: A function with signature::
+
+        fft_gtgram(
+            wave,
+            fs,
+            window_time, hop_time,
+            channels,
+            f_min)
+
+    See :func:`gammatone.gtgram.gtgram` for details of the paramters.
     """
     # Set a nice formatter for the y-axis
     formatter = ERBFormatter(f_min, fs/2, unit='Hz', places=0)
@@ -73,7 +85,7 @@ def gtgram_plot(
     # Calculate 1:1 aspect ratio
     aspect_ratio = duration/scipy.constants.golden
     
-    gtg = gammatone.fftweight.fft_gtgram(x, fs, window_time, hop_time, channels, f_min)
+    gtg = gtgram_function(x, fs, window_time, hop_time, channels, f_min)
     Z = np.flipud(20 * np.log10(gtg))
     
     img = axes.imshow(Z, extent=[0, duration, 1, 0], aspect=aspect_ratio)
@@ -99,13 +111,14 @@ def _format_help_text(help_text):
     """
     formats = audiolab.available_file_formats()
     format_entries = (FORMAT_LIST_PREFIX + fmt for fmt in formats)
-    sound_format_text = "\n".join(format_entries)
+    sound_format_text = ", ".join(format_entries)
     return help_text.format(sound_formats=sound_format_text)
 
 
-def render_audio_from_file(path, duration):
+def render_audio_from_file(path, duration, function):
     """
-    Renders the given ``duration`` of audio from the audio file at ``path``.
+    Renders the given ``duration`` of audio from the audio file at ``path``
+    using the gammatone spectrogram function ``function``.
     """
     music = audiolab.Sndfile(path)
     # Average the stereo signal
@@ -117,16 +130,17 @@ def render_audio_from_file(path, duration):
     signal = music.read_frames(nframes).mean(1)
 
     # Default gammatone-based spectrogram parameters
-    twin = 0.008
+    twin = 0.08
     thop = twin/2
-    channels = 256
+    channels = 1024
     fmin = 20
 
     # Set up the plot
     fig = matplotlib.pyplot.figure()
     axes = fig.add_axes([0.1, 0.1, 0.8, 0.8])
 
-    gammatone.plot.gtgram_plot(
+    gtgram_plot(
+        function,
         axes,
         signal,
         music.samplerate,
@@ -155,6 +169,14 @@ def main():
              "graph (default is to use the whole file)."
         )
 
+    parser.add_argument(
+        '-a', '--accurate', action='store_const', dest='function',
+        const=gammatone.gtgram.gtgram, default=gammatone.fftweight.fft_gtgram,
+        help="Use the full filterbank approach instead of the weighted FFT "
+             "approximation. This is much slower, and uses a lot of memory, but"
+             " is more accurate."
+        )
+
     args = parser.parse_args()
 
-    return render_audio_from_file(args.sound_file, args.duration)
+    return render_audio_from_file(args.sound_file, args.duration, args.function)

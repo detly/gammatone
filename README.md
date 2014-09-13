@@ -45,10 +45,6 @@ python setup.py install
  - nose
  - mock
  - matplotlib
- - scikits.audiolab >= 0.11.0.p3.1
-
-Because the authoritative version of `audiolab` hasn't been ported to Python 3
-yet, you will need to install [my port](https://github.com/detly/audiolab).
 
 Using the Code
 --------------
@@ -137,7 +133,7 @@ workflow:
 
   1. Run the scripts in the `test_generation` directory. This will create a
      `.mat` file containing test data in `tests/data`.
-     
+
   2. Run `nosetest3` in the top level directory. This will find and run all the
      tests in the `tests` directory.
 

@@ -23,11 +23,6 @@ Dependencies
 -  nose
 -  mock
 -  matplotlib
--  scikits.audiolab >= 0.11.0.p3.1
-
-Because the authoritative version of ``audiolab`` hasn't been ported to
-Python 3 yet, you will need to install `my
-port <https://github.com/detly/audiolab>`_.
 
 Using the Code
 ~~~~~~~~~~~~~~

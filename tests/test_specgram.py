@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-# 
+#
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 from mock import patch
@@ -27,13 +27,13 @@ def load_reference_data():
     # Load test data
     with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
         data = scipy.io.loadmat(test_data, squeeze_me=False)
-    
+
     zipped_data = zip(data[INPUT_KEY], data[MOCK_KEY], data[RESULT_KEY])
     for inputs, mocks, refs in zipped_data:
         input_dict = dict(zip(INPUT_COLS, inputs))
         mock_dict  = dict(zip(MOCK_COLS, mocks))
         ref_dict = dict(zip(RESULT_COLS, refs))
-        
+
         yield (input_dict, mock_dict, ref_dict)
 
 
@@ -47,7 +47,7 @@ def test_specgram():
         )
 
         yield SpecgramTester(
-            inputs['name'],
+            inputs['name'][0],
             args,
             inputs['wave'],
             mocks['window'],
@@ -56,7 +56,7 @@ def test_specgram():
 
 class SpecgramTester:
     """ Testing class for specgram replacement calculation """
-    
+
     def __init__(self, name, args, sig, window, expected):
         self.signal = np.asarray(sig).squeeze()
         self.expected = np.asarray(expected).squeeze()

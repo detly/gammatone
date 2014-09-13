@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-# 
+#
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 from mock import patch
@@ -27,13 +27,13 @@ def load_reference_data():
     # Load test data
     with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
         data = scipy.io.loadmat(test_data, squeeze_me=False)
-    
+
     zipped_data = zip(data[INPUT_KEY], data[MOCK_KEY], data[RESULT_KEY])
     for inputs, mocks, refs in zipped_data:
         input_dict = dict(zip(INPUT_COLS, inputs))
         mock_dict  = dict(zip(MOCK_COLS, mocks))
         ref_dict = dict(zip(RESULT_COLS, refs))
-        
+
         yield (input_dict, mock_dict, ref_dict)
 
 
@@ -56,7 +56,7 @@ class FFTGtgramWindowTester:
         self.nfft = args[0].squeeze()
         self.nwin = args[1].squeeze()
         self.expected = expected[0].squeeze()
-        
+
         self.description = (
             "FFT gammatonegram window for nfft = {:f}, nwin = {:f}".format(
                 float(self.nfft), float(self.nwin)
@@ -80,7 +80,7 @@ def test_fft_gtgram():
         )
 
         yield FFTGammatonegramTester(
-            inputs['name'],
+            inputs['name'][0],
             args,
             inputs['wave'],
             mocks['wts'],
@@ -90,7 +90,7 @@ def test_fft_gtgram():
 
 class FFTGammatonegramTester:
     """ Testing class for gammatonegram calculation """
-    
+
     def __init__(self, name, args, sig, fft_weights, window, expected):
         self.signal = np.asarray(sig).squeeze()
         self.expected = np.asarray(expected).squeeze()
@@ -108,7 +108,7 @@ class FFTGammatonegramTester:
             patch(
                 'gammatone.fftweight.specgram_window',
                 return_value=self.window):
-            
+
             result = gammatone.fftweight.fft_gtgram(self.signal, *self.args)
 
             max_diff = np.max(np.abs(result - self.expected))

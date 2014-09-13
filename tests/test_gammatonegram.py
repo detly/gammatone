@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-# 
+#
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 from mock import patch
@@ -27,7 +27,7 @@ def load_reference_data():
     # Load test data
     with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
         data = scipy.io.loadmat(test_data, squeeze_me=True)
-    
+
     zipped_data = zip(data[INPUT_KEY], data[MOCK_KEY], data[RESULT_KEY])
     for inputs, mocks, refs in zipped_data:
         input_dict = dict(zip(INPUT_COLS, inputs))
@@ -45,7 +45,7 @@ def test_nstrides():
             inputs['thop'],
             mocks['erb_fb_cols']
         )
-        
+
         expected = (
             refs['nwin'],
             refs['hopsamps'],
@@ -57,19 +57,19 @@ def test_nstrides():
 
 class GTGramStrideTester:
     """ Testing class for gammatonegram stride calculation """
-    
+
     def __init__(self, name, inputs, expected):
         self.inputs      = inputs
         self.expected    = expected
         self.description = "Gammatonegram strides for {:s}".format(name)
-        
+
     def __call__(self):
         results = gammatone.gtgram.gtgram_strides(*self.inputs)
-        
+
         diagnostic = (
             "result: {:s}, expected: {:s}".format(
-                results,
-                self.expected
+                str(results),
+                str(self.expected)
             )
         )
 
@@ -88,7 +88,7 @@ def test_gtgram():
             inputs['channels'],
             inputs['fmin']
         )
-        
+
         yield GammatonegramTester(
             inputs['name'],
             args,
@@ -99,20 +99,20 @@ def test_gtgram():
 
 class GammatonegramTester:
     """ Testing class for gammatonegram calculation """
-    
+
     def __init__(self, name, args, sig, erb_fb_out, expected):
         self.signal = np.asarray(sig)
         self.expected = np.asarray(expected)
         self.erb_fb_out = np.asarray(erb_fb_out)
         self.args = args
-        
+
         self.description = "Gammatonegram for {:s}".format(name)
 
     def __call__(self):
         with patch(
             'gammatone.gtgram.erb_filterbank',
             return_value=self.erb_fb_out):
-            
+
             result = gammatone.gtgram.gtgram(self.signal, *self.args)
 
             max_diff = np.max(np.abs(result - self.expected))

@@ -27,15 +27,16 @@ Dependencies
 Using the Code
 ~~~~~~~~~~~~~~
 
-For a demonstration, you can run::
+For a demonstration, find a `.wav` file (for example,
+[Für Elise](http://heeris.id.au/samples/FurElise.wav)) and run::
 
-    python -m gammatone samples/FurElise.ogg -d 10
+    python -m gammatone FurElise.wav -d 10
 
 ...to see a gammatone-gram of the first ten seconds of Beethoven's "Für
 Elise." If you've installed via
 ``pip`` or ``setup.py install``, you should also be able to just run::
 
-    gammatone samples/FurElise.ogg -d 10
+    gammatone FurElise.wav -d 10
 
 Basis
 ~~~~~

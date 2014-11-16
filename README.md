@@ -45,27 +45,23 @@ python setup.py install
  - nose
  - mock
  - matplotlib
- - scikits.audiolab >= 0.11.0.p3.1
-
-Because the authoritative version of `audiolab` hasn't been ported to Python 3
-yet, you will need to install [my port](https://github.com/detly/audiolab).
 
 Using the Code
 --------------
 
 See the [API documentation](http://detly.github.io/gammatone/). For a
-demonstration, you can run:
+demonstration, find a `.wav` file (for example,
+[Für Elise](http://heeris.id.au/samples/FurElise.wav)) and run:
 
 ```text
-python -m gammatone samples/FurElise.ogg -d 10
+python -m gammatone FurElise.wav -d 10
 ```
 
-...to see a gammatone-gram of the first ten seconds of Beethoven's "Für Elise."
-If you've installed via `pip` or `setup.py install`, you should also be able to
-just run:
+...to see a gammatone-gram of the first ten seconds of the track. If you've
+installed via `pip` or `setup.py install`, you should also be able to just run:
 
 ```text
-gammatone samples/FurElise.ogg -d 10
+gammatone FurElise.wav -d 10
 ```
 
 Basis
@@ -137,7 +133,7 @@ workflow:
 
   1. Run the scripts in the `test_generation` directory. This will create a
      `.mat` file containing test data in `tests/data`.
-     
+
   2. Run `nosetest3` in the top level directory. This will find and run all the
      tests in the `tests` directory.
 

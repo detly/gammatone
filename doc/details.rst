@@ -28,7 +28,7 @@ Using the Code
 ~~~~~~~~~~~~~~
 
 For a demonstration, find a `.wav` file (for example,
-[Für Elise](http://heeris.id.au/samples/FurElise.wav)) and run::
+`Für Elise <http://heeris.id.au/samples/FurElise.wav>`_) and run::
 
     python -m gammatone FurElise.wav -d 10
 

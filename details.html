@@ -61,22 +61,19 @@ similar to Fourier-based spectrogram analysis.</p>
 <li>nose</li>
 <li>mock</li>
 <li>matplotlib</li>
-<li>scikits.audiolab &gt;= 0.11.0.p3.1</li>
 </ul>
-<p>Because the authoritative version of <tt class="docutils literal"><span class="pre">audiolab</span></tt> hasn&#8217;t been ported to
-Python 3 yet, you will need to install <a class="reference external" href="https://github.com/detly/audiolab">my
-port</a>.</p>
 </div>
 <div class="section" id="using-the-code">
 <h2>Using the Code<a class="headerlink" href="#using-the-code" title="Permalink to this headline">¶</a></h2>
-<p>For a demonstration, you can run:</p>
-<div class="highlight-python"><div class="highlight"><pre>python -m gammatone samples/FurElise.ogg -d 10
+<p>For a demonstration, find a <cite>.wav</cite> file (for example,
+<a class="reference external" href="http://heeris.id.au/samples/FurElise.wav">Für Elise</a>) and run:</p>
+<div class="highlight-python"><div class="highlight"><pre>python -m gammatone FurElise.wav -d 10
 </pre></div>
 </div>
 <p>...to see a gammatone-gram of the first ten seconds of Beethoven&#8217;s &#8220;Für
 Elise.&#8221; If you&#8217;ve installed via
 <tt class="docutils literal"><span class="pre">pip</span></tt> or <tt class="docutils literal"><span class="pre">setup.py</span> <span class="pre">install</span></tt>, you should also be able to just run:</p>
-<div class="highlight-python"><div class="highlight"><pre>gammatone samples/FurElise.ogg -d 10
+<div class="highlight-python"><div class="highlight"><pre>gammatone FurElise.wav -d 10
 </pre></div>
 </div>
 </div>
@@ -164,7 +161,7 @@ original MATLAB code.</p>
 
     <div class="footer">
         &copy; Copyright 2014, Jason Heeris.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

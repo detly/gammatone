@@ -6,6 +6,7 @@
 Plotting utilities related to gammatone analysis, primarily for use with
 ``matplotlib``.
 """
+from __future__ import division
 import argparse
 import os.path
 

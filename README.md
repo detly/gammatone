@@ -9,7 +9,7 @@ Summary
 -------
 
 This is a port of Malcolm Slaney's and Dan Ellis' gammatone filterbank MATLAB
-code, detailed below, to Python 3 using Numpy and Scipy. It analyses signals by
+code, detailed below, to Python using Numpy and Scipy. It analyses signals by
 running them through banks of gammatone filters, similar to Fourier-based
 spectrogram analysis.
 
@@ -45,6 +45,8 @@ python setup.py install
  - nose
  - mock
  - matplotlib
+
+ Note: this library is compatible both with Python 2 and 3.
 
 Using the Code
 --------------

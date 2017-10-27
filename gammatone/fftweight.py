@@ -25,8 +25,8 @@ def specgram_window(
     acthalflen = np.floor(min(halff, halflen))
     halfwin = 0.5 * ( 1 + np.cos(np.pi * np.arange(0, halflen+1)/halflen))
     win = np.zeros((nfft,))
-    win[halff:halff+acthalflen] = halfwin[0:acthalflen];
-    win[halff:halff-acthalflen:-1] = halfwin[0:acthalflen];
+    win[int(halff):int(halff+acthalflen)] = halfwin[0:int(acthalflen)];
+    win[int(halff):int(halff-acthalflen):-1] = halfwin[0:int(acthalflen)];
     return win
 
 
@@ -49,12 +49,12 @@ def specgram(x, n, sr, w, h):
 
     # pre-allocate output array
     ncols = 1 + np.floor((s-n)/h)
-    d = np.zeros(((1 + n/2), ncols), np.dtype(complex))
+    d = np.zeros(((1 +int(n/2)), int(ncols)), np.dtype(complex))
 
     for b in range(0, s-n, h):
       u = win * x[b:b+n]
       t = np.fft.fft(u)
-      d[:,c] = t[0:(1+n/2)].T
+      d[:,c] = t[0:int((1+n/2))].T
       c = c + 1
 
     return d
@@ -118,7 +118,7 @@ def fft_weights(
         / gain[..., None]
     )
 
-    weights = weights[:, 0:maxlen]
+    weights = weights[:, 0:int(maxlen)]
 
     return weights, gain
 

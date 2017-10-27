@@ -45,14 +45,14 @@ class ERBFormatter(matplotlib.ticker.EngFormatter):
         """
         self.low_freq = low_freq
         self.high_freq = high_freq
-        super().__init__(*args, **kwargs)
+        super(ERBFormatter, self).__init__(*args, **kwargs)
 
     def _erb_axis_scale(self, fraction):
         return erb_point(self.low_freq, self.high_freq, fraction)
 
     def __call__(self, val, pos=None):
         newval = self._erb_axis_scale(val)
-        return super().__call__(newval, pos)
+        return super(ERBFormatter, self).__call__(newval, pos)
 
 
 def gtgram_plot(

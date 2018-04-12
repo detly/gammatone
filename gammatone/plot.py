@@ -112,13 +112,13 @@ def render_audio_from_file(path, duration, function):
     # Average the stereo signal
     if duration:
         nframes = duration * samplerate
-        data = data[0:nframes, :]
+        data = data[0 : nframes, :]
 
     signal = data.mean(1)
 
     # Default gammatone-based spectrogram parameters
     twin = 0.08
-    thop = twin/2
+    thop = twin / 2
     channels = 1024
     fmin = 20
 

@@ -20,9 +20,9 @@ def specgram_window(
     Window calculation used in specgram replacement function. Hann window of
     width `nwin` centred in an array of width `nfft`.
     """
-    halflen = nwin/2
-    halff = nfft/2 # midpoint of win
-    acthalflen = np.floor(min(halff, halflen))
+    halflen = nwin // 2
+    halff = nfft // 2 # midpoint of win
+    acthalflen = int(np.floor(min(halff, halflen)))
     halfwin = 0.5 * ( 1 + np.cos(np.pi * np.arange(0, halflen+1)/halflen))
     win = np.zeros((nfft,))
     win[halff:halff+acthalflen] = halfwin[0:acthalflen];
@@ -48,13 +48,13 @@ def specgram(x, n, sr, w, h):
     c = 0
 
     # pre-allocate output array
-    ncols = 1 + np.floor((s-n)/h)
-    d = np.zeros(((1 + n/2), ncols), np.dtype(complex))
+    ncols = 1 + int(np.floor((s - n)/h))
+    d = np.zeros(((1 + n // 2), ncols), np.dtype(complex))
 
-    for b in range(0, s-n, h):
-      u = win * x[b:b+n]
+    for b in range(0, s - n, h):
+      u = win * x[b : b + n]
       t = np.fft.fft(u)
-      d[:,c] = t[0:(1+n/2)].T
+      d[:, c] = t[0 : (1 + n // 2)].T
       c = c + 1
 
     return d
@@ -92,7 +92,7 @@ def fft_weights(
     | (c) 2004-2009 Dan Ellis dpwe@ee.columbia.edu  based on rastamat/audspec.m
     | (c) 2012 Jason Heeris (Python implementation)
     """
-    ucirc = np.exp(1j * 2 * np.pi * np.arange(0, nfft/2 + 1)/nfft)[None, ...]
+    ucirc = np.exp(1j * 2 * np.pi * np.arange(0, nfft / 2 + 1) / nfft)[None, ...]
     
     # Common ERB filter code factored out
     cf_array = filters.erb_space(fmin, fmax, nfilts)[::-1]
@@ -118,7 +118,7 @@ def fft_weights(
         / gain[..., None]
     )
 
-    weights = weights[:, 0:maxlen]
+    weights = weights[:, 0:int(maxlen)]
 
     return weights, gain
 
@@ -148,7 +148,7 @@ def fft_gtgram(
     """
     width = 1 # Was a parameter in the MATLAB code
 
-    nfft = int(2**(np.ceil(np.log2(2 * window_time * fs))))
+    nfft = int(2 ** (np.ceil(np.log2(2 * window_time * fs))))
     nwin, nhop, _ = gtgram.gtgram_strides(fs, window_time, hop_time, 0);
 
     gt_weights, _ = fft_weights(
@@ -157,8 +157,8 @@ def fft_gtgram(
             channels,
             width,
             f_min,
-            fs/2,
-            nfft/2 + 1
+            fs / 2,
+            nfft / 2 + 1
         )
 
     sgram = specgram(wave, nfft, fs, nwin, nhop)

@@ -15,7 +15,7 @@ from scipy import signal as sgn
 
 DEFAULT_FILTER_NUM = 100
 DEFAULT_LOW_FREQ = 100
-DEFAULT_HIGH_FREQ = 44100/4
+DEFAULT_HIGH_FREQ = 44100 / 4
 
 
 def erb_point(low_freq, high_freq, fraction):
@@ -40,14 +40,14 @@ def erb_point(low_freq, high_freq, fraction):
     # Efficient Implementation of the Patterson-Holdsworth Cochlear Filter
     # Bank." See pages 33-34.
     erb_point = (
-        -ear_q*min_bw
+        -ear_q * min_bw
         + np.exp(
             fraction * (
-                -np.log(high_freq + ear_q*min_bw)
-                + np.log(low_freq + ear_q*min_bw)
+                -np.log(high_freq + ear_q * min_bw)
+                + np.log(low_freq + ear_q * min_bw)
                 )
         ) *
-        (high_freq + ear_q*min_bw)
+        (high_freq + ear_q * min_bw)
     )
     
     return erb_point
@@ -68,7 +68,7 @@ def erb_space(
     return erb_point(
         low_freq,
         high_freq,
-        np.arange(1, num+1)/num
+        np.arange(1, num + 1) / num
         )
 
 
@@ -84,7 +84,7 @@ def centre_freqs(fs, num_freqs, cutoff):
     :param cutoff: lower cutoff frequency
     :return: same as :func:`erb_space`
     """
-    return erb_space(cutoff, fs/2, num_freqs)
+    return erb_space(cutoff, fs / 2, num_freqs)
 
 
 def make_erb_filters(fs, centre_freqs, width=1.0):
@@ -132,7 +132,7 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     |
     | (c) 2012 Jason Heeris (Python implementation)
     """
-    T = 1/fs
+    T = 1 / fs
     # Change the followFreqing three parameters if you wish to use a different
     # ERB scale. Must change in ERBSpace too.
     # TODO: factor these out
@@ -140,20 +140,20 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     min_bw = 24.7
     order = 1
 
-    erb = width*((centre_freqs/ear_q)**order + min_bw**order)**(1/order)
-    B = 1.019*2*np.pi*erb
+    erb = width*((centre_freqs / ear_q) ** order + min_bw ** order) ** ( 1 /order)
+    B = 1.019 * 2 * np.pi * erb
 
-    arg = 2*centre_freqs*np.pi*T
-    vec = np.exp(2j*arg)
+    arg = 2 * centre_freqs * np.pi * T
+    vec = np.exp(2j * arg)
 
     A0 = T
     A2 = 0
     B0 = 1
-    B1 = -2*np.cos(arg)/np.exp(B*T)
-    B2 = np.exp(-2*B*T)
+    B1 = -2 * np.cos(arg) / np.exp(B * T)
+    B2 = np.exp(-2 * B * T)
     
-    rt_pos = np.sqrt(3 + 2**1.5)
-    rt_neg = np.sqrt(3 - 2**1.5)
+    rt_pos = np.sqrt(3 + 2 ** 1.5)
+    rt_neg = np.sqrt(3 - 2 ** 1.5)
     
     common = -T * np.exp(-(B * T))
     
@@ -177,16 +177,16 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
           * (vec - gain_arg * k12)
           * (vec - gain_arg * k13)
           * (vec - gain_arg * k14)
-          * (  T * np.exp(B*T)
-             / (-1 / np.exp(B*T) + 1 + vec * (1 - np.exp(B*T)))
+          * (  T * np.exp(B * T)
+             / (-1 / np.exp(B * T) + 1 + vec * (1 - np.exp(B * T)))
             )**4
         )
 
     allfilts = np.ones_like(centre_freqs)
     
     fcoefs = np.column_stack([
-        A0*allfilts, A11, A12, A13, A14, A2*allfilts,
-        B0*allfilts, B1, B2,
+        A0 * allfilts, A11, A12, A13, A14, A2*allfilts,
+        B0 * allfilts, B1, B2,
         gain
     ])
     
@@ -235,6 +235,6 @@ def erb_filterbank(wave, coefs):
         y2 = sgn.lfilter(As2[idx], Bs[idx], y1)
         y3 = sgn.lfilter(As3[idx], Bs[idx], y2)
         y4 = sgn.lfilter(As4[idx], Bs[idx], y3)
-        output[idx, :] = y4/gain[idx]
+        output[idx, :] = y4 / gain[idx]
         
     return output

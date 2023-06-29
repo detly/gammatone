@@ -20,15 +20,13 @@ def specgram_window(
     Window calculation used in specgram replacement function. Hann window of
     width `nwin` centred in an array of width `nfft`.
     """
-    halflen = nwin // 2
-    halff = nfft // 2 # midpoint of win
+    halflen = int(nwin // 2)
+    halff = int(nfft // 2)  # midpoint of win
     acthalflen = int(np.floor(min(halff, halflen)))
     halfwin = 0.5 * ( 1 + np.cos(np.pi * np.arange(0, halflen+1)/halflen))
-
-    # typing fro some compatibility reasons
-    win = np.zeros((int(nfft),))
-    win[halff:halff+acthalflen] = halfwin[0:acthalflen];
-    win[halff:halff-acthalflen:-1] = halfwin[0:acthalflen];
+    win = np.zeros((int(nfft),))  # typing int for some compatibility reasons
+    win[halff:halff+acthalflen] = halfwin[0:acthalflen]
+    win[halff:halff-acthalflen:-1] = halfwin[0:acthalflen]
     return win
 
 
@@ -94,6 +92,7 @@ def fft_weights(
     | (c) 2004-2009 Dan Ellis dpwe@ee.columbia.edu  based on rastamat/audspec.m
     | (c) 2012 Jason Heeris (Python implementation)
     """
+    nfilts, ncols = int(nfilts), int(nfft)  # typing int for some compatibility reasons
     ucirc = np.exp(1j * 2 * np.pi * np.arange(0, nfft / 2 + 1) / nfft)[None, ...]
     
     # Common ERB filter code factored out
@@ -108,11 +107,9 @@ def fft_weights(
     r = np.sqrt(B2)
     theta = 2 * np.pi * cf_array / fs    
     pole = (r * np.exp(1j * theta))[..., None]
-    
+
     GTord = 4
 
-    # typing fro some compatibility reasons
-    nfilts, ncols = int(nfilts), int(nfft)
     weights = np.zeros((nfilts, nfft))
 
     weights[:, 0:ucirc.shape[1]] = (

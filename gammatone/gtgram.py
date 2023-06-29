@@ -76,7 +76,9 @@ def gtgram(
         hop_time,
         xe.shape[1]
     )
-    
+
+    # typing fro some compatibility reasons
+    channels, ncols = int(channels), int(ncols)
     y = np.zeros((channels, ncols))
     
     for cnum in range(ncols):

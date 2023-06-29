@@ -24,7 +24,9 @@ def specgram_window(
     halff = nfft // 2 # midpoint of win
     acthalflen = int(np.floor(min(halff, halflen)))
     halfwin = 0.5 * ( 1 + np.cos(np.pi * np.arange(0, halflen+1)/halflen))
-    win = np.zeros((nfft,))
+
+    # typing fro some compatibility reasons
+    win = np.zeros((int(nfft),))
     win[halff:halff+acthalflen] = halfwin[0:acthalflen];
     win[halff:halff-acthalflen:-1] = halfwin[0:acthalflen];
     return win
@@ -108,7 +110,9 @@ def fft_weights(
     pole = (r * np.exp(1j * theta))[..., None]
     
     GTord = 4
-    
+
+    # typing fro some compatibility reasons
+    nfilts, ncols = int(nfilts), int(nfft)
     weights = np.zeros((nfilts, nfft))
 
     weights[:, 0:ucirc.shape[1]] = (
